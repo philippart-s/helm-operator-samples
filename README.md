@@ -97,3 +97,62 @@ $ kubectl get pod,svc  -n test-quarkus-operator
 
 No resources found in test-nginx-operator namespace.
 ```
+
+## 🐳 Packaging & deployment to K8s
+ - la branche `06-package-deploy` contient le résultat de cette étape
+ - modifier le Makefile:
+```makefile
+## unmodified code ...
+
+IMAGE_TAG_BASE ?= wilda/helm-operator-samples
+
+## unmodified code ...
+
+IMG ?= $(IMAGE_TAG_BASE):$(VERSION)
+
+## unmodified code ...
+
+.PHONY: docker-build
+docker-build: ## Build docker image with the manager.
+## ⚠️ A ne modifier que si vous êtes sous MacOs ⚠️
+	docker buildx build --platform linux/amd64 -t ${IMG} . 
+
+## unmodified code ...
+```
+ - lancer la création de l'image: `make docker-build`
+ - s'authentifier sur le docker hub : `docker login`
+ - push de l'image : `make docker-push`:
+```bash
+$ make docker-push
+docker push wilda/helm-operator-samples:0.0.1
+The push refers to repository [docker.io/wilda/helm-operator-samples]
+ba799744b273: Pushed 
+c2478431b8aa: Pushed 
+b8b93056b2b4: Pushed 
+f17b8b04ea46: Pushed 
+0f5e46be1279: Pushed 
+f67325c917d2: Pushed 
+8fdd60a624e2: Pushed 
+0.0.1: digest: sha256:4cbaf35830abe9f37dd109b7e2cdfc7b5ea67efdc73e85015ad7e9e8799b8582 size: 1778
+```
+ - déployer l'opérateur dans Kubernetes : `make deploy`:
+```bash
+$ kubectl get deployment -n helm-operator-samples-system
+
+NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
+helm-operator-samples-controller-manager   1/1     1            1           92s
+```
+ - créer la CR : `kubectl apply -f ./config/samples/charts_v1_quarkushelmchart.yaml -n test-quarkus-operator`
+ - vérifier que l'opérateur a fait le nécessaire: `kubectl get pod,svc  -n test-quarkus-operator`
+```bash
+$ kubectl get pod,svc  -n test-quarkus-operator
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/quarkus-deployment-557d859bff-f62vh   1/1     Running   0          20s
+pod/quarkus-deployment-557d859bff-ht8hh   1/1     Running   0          20s
+
+NAME                    TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/quarkus-service   NodePort   X.X.X.X   <none>        80:30081/TCP   21s
+```
+ - supprimer la CR : `kubectl delete quarkushelmcharts.charts.wilda.fr quarkushelmchart-sample -n test-quarkus-operator`
+ - undeploy de l'opérateur : `make undeploy`
+ - supprimer les namespaces: `kubectl delete ns test-quarkus-operator`
