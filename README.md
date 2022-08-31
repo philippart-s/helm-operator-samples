@@ -148,7 +148,6 @@ helm-operator-samples-controller-manager   1/1     1            1           92s
 $ kubectl get pod,svc  -n test-quarkus-operator
 NAME                                    READY   STATUS    RESTARTS   AGE
 pod/quarkus-deployment-557d859bff-f62vh   1/1     Running   0          20s
-pod/quarkus-deployment-557d859bff-ht8hh   1/1     Running   0          20s
 
 NAME                    TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 service/quarkus-service   NodePort   X.X.X.X   <none>        80:30081/TCP   21s
