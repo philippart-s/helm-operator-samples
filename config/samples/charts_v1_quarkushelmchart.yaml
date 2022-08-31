@@ -1,0 +1,11 @@
+apiVersion: charts.wilda.fr/v1
+kind: QuarkusHelmChart
+metadata:
+  name: quarkushelmchart-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/quarkus-helm-chart/values.yaml
+  imageVersion: 1.0.0
+  service:
+    port: 30080
+  
+  

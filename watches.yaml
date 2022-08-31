@@ -1,0 +1,6 @@
+# Use the 'create api' subcommand to add watches to this file.
+- group: charts.wilda.fr
+  version: v1
+  kind: QuarkusHelmChart
+  chart: helm-charts/quarkus-helm-chart
+#+kubebuilder:scaffold:watch
