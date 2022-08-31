@@ -58,3 +58,25 @@ quarkushelmchart.charts.wilda.fr/quarkushelmchart-sample   51s
 curl http://<cluster address>:30080/hello
 👋  Hello, World ! 🌍
 ```
+
+## ✏️ Update CR
+ - la branche `04-update-cr` contient le résultat de cette étape
+ - changer la valeur de `imageVersion` dans la CR `config/samples/charts_v1_quarkushelmchartt.yaml`:
+```yaml
+apiVersion: charts.wilda.fr/v1
+kind: QuarkusHelmChart
+metadata:
+  name: quarkushelmchart-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/quarkus-helm-chart/values.yaml
+  imageVersion: 1.0.4
+  service:
+    port: 30080
+```
+ - appliquer la CR: `kubectl apply -f ./config/samples/charts_v1_quarkushelmchart.yaml -n test-quarkus-operator`
+ - vérifier que l'image a bien changée':
+```bash
+$ kubectl get deployment quarkus-deployment -n test-quarkus-operator -o json | jq '.spec.template.spec.containers[0].image'
+
+"wilda/hello-world-from-quarkus:1.0.4"
+```
