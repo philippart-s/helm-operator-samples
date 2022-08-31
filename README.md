@@ -80,3 +80,20 @@ $ kubectl get deployment quarkus-deployment -n test-quarkus-operator -o json | j
 
 "wilda/hello-world-from-quarkus:1.0.4"
 ```
+
+## 👀 Watch service deletion
+ - la branche `05-watch-service-deletion` contient le résultat de cette étape
+ - supprimer le service : `kubectl delete svc/quarkus-service -n test-quarkus-operator`
+ - constater qu'il est recréé: `kubectl get svc  -n test-quarkus-operator`
+```bash
+$ kubectl get svc  -n test-quarkus-operator
+NAME              TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+quarkus-service   NodePort   X.X.X.X   <none>        80:30080/TCP   4s
+```
+ - supprimer la CR : `kubectl delete quarkushelmcharts.charts.wilda.fr quarkushelmchart-sample -n test-quarkus-operator`
+ - vérifier que tout a été supprimé:
+```bash
+$ kubectl get pod,svc  -n test-quarkus-operator
+
+No resources found in test-nginx-operator namespace.
+```
