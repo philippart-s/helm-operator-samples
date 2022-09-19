@@ -19,8 +19,8 @@ NAME                                CREATED AT
 quarkushelmcharts.charts.wilda.fr   2022-08-31T13:04:09Z
 ```
 
-## 🤖 Deploy operator
- - la branche `03-deploy-operatorr` contient le résultat de cette étape
+## 🤖 Deploy Quarkus application
+ - la branche `03-deploy-quarkus-app` contient le résultat de cette étape
  - lancer l'opérateur en mode local : `make install run`
 ```bash
 $ make install run
@@ -40,7 +40,7 @@ customresourcedefinition.apiextensions.k8s.io/quarkushelmcharts.charts.wilda.fr 
 ```
  - créer le namespace `test-quarkus-operator`: `kubectl create ns test-quarkus-operator`
  - appliquer la CR d'exemple présente dans `./config/samples`sur Kubernetes: `kubectl apply -f ./config/samples/charts_v1_quarkushelmchart.yaml -n test-quarkus-operator`
- - l'opérateur devrait créer le pod Nginx et son service:
+ - l'opérateur devrait créer le pod Quarkus et son service:
 ```bash
 $ kubectl get pod,svc,quarkushelmcharts  -n test-quarkus-operator
 kubectl get pod,svc,quarkushelmcharts  -n test-quarkus-operator
