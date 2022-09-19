@@ -95,7 +95,7 @@ quarkus-service   NodePort   X.X.X.X   <none>        80:30080/TCP   4s
 ```bash
 $ kubectl get pod,svc  -n test-quarkus-operator
 
-No resources found in test-nginx-operator namespace.
+No resources found in test-quarkus-operator.
 ```
 
 ## 🐳 Packaging & deployment to K8s
