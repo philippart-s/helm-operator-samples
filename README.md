@@ -19,12 +19,11 @@ NAME                                CREATED AT
 quarkushelmcharts.charts.wilda.fr   2022-08-31T13:04:09Z
 ```
 
-## 🤖 Deploy operator
- - la branche `03-deploy-operatorr` contient le résultat de cette étape
+## 🤖 Deploy Quarkus application
+ - la branche `03-deploy-quarkus-app` contient le résultat de cette étape
  - lancer l'opérateur en mode local : `make install run`
 > Un message d'erreur peut apparaître : `{"level":"error","ts":1663779194.323509,"msg":"Reconciler error","controller":"quarkushelmchart-controller", "object":{"name":"quarkushelmchart-sample","namespace":"test-quarkus-operator"},"namespace":"test-quarkus-operator","name":"quarkushelmchart-sample","reconcileID":"ca685ab7-84b1-48b6-87f8-3b64b4dda864","error":"Operation cannot be fulfilled on quarkushelmcharts.charts.wilda.fr \"quarkushelmchart-sample\": the object has been modified; please apply your changes to the latest version and try again","stacktrace":"sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\t/home/runner/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.12.1/pkg/internal/controller/controller.go:273\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\t/home/runner/go/pkg/mod/sigs.k8s.io/controller-runtime@v0.12.1/pkg/internal/controller/controller.go:234"}`
 Ce n'est pas bloquant, plus d'infos : https://github.com/operator-framework/operator-sdk/issues/5145
-
 ```bash
 $ make install run
 
@@ -43,7 +42,7 @@ customresourcedefinition.apiextensions.k8s.io/quarkushelmcharts.charts.wilda.fr 
 ```
  - créer le namespace `test-quarkus-operator`: `kubectl create ns test-quarkus-operator`
  - appliquer la CR d'exemple présente dans `./config/samples`sur Kubernetes: `kubectl apply -f ./config/samples/charts_v1_quarkushelmchart.yaml -n test-quarkus-operator`
- - l'opérateur devrait créer le pod Nginx et son service:
+ - l'opérateur devrait créer le pod Quarkus et son service:
 ```bash
 $ kubectl get pod,svc,quarkushelmcharts  -n test-quarkus-operator
 kubectl get pod,svc,quarkushelmcharts  -n test-quarkus-operator
