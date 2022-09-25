@@ -139,7 +139,7 @@ f67325c917d2: Pushed
 ```
  - déployer l'opérateur dans Kubernetes : `make deploy`:
 ```bash
-$ kubectl get deployment -n helm-operator-samples-system
+$ kubectl get deployment -n helm-operator-samples-system -w
 
 NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
 helm-operator-samples-controller-manager   1/1     1            1           92s
