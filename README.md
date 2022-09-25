@@ -97,7 +97,7 @@ quarkus-service   NodePort   X.X.X.X   <none>        80:30080/TCP   4s
 ```bash
 $ kubectl get pod,svc  -n test-quarkus-operator
 
-No resources found in test-nginx-operator namespace.
+No resources found in test-quarkus-operator.
 ```
 
 ## 🐳 Packaging & deployment to K8s
@@ -139,7 +139,7 @@ f67325c917d2: Pushed
 ```
  - déployer l'opérateur dans Kubernetes : `make deploy`:
 ```bash
-$ kubectl get deployment -n helm-operator-samples-system
+$ kubectl get deployment -n helm-operator-samples-system -w
 
 NAME                                           READY   UP-TO-DATE   AVAILABLE   AGE
 helm-operator-samples-controller-manager   1/1     1            1           92s

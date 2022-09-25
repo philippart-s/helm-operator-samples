@@ -77,7 +77,9 @@ run: helm-operator ## Run against the configured Kubernetes cluster in ~/.kube/c
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
-	docker build -t ${IMG} .
+## ⚠️ A ne modifier que si vous êtes sous MacOs ⚠️
+#	docker build -t ${IMG} .
+	docker buildx build --platform linux/amd64 -t ${IMG} .
 
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
