@@ -111,13 +111,6 @@ IMAGE_TAG_BASE ?= wilda/helm-operator-samples
 IMG ?= $(IMAGE_TAG_BASE):$(VERSION)
 
 ## unmodified code ...
-
-.PHONY: docker-build
-docker-build: ## Build docker image with the manager.
-## ⚠️ A ne modifier que si vous êtes sous MacOs ⚠️
-	docker buildx build --platform linux/amd64 -t ${IMG} . 
-
-## unmodified code ...
 ```
  - lancer la création de l'image: `make docker-build`
  - s'authentifier sur le docker hub : `docker login`
